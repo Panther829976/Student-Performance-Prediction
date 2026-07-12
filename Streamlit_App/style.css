@@ -245,28 +245,83 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover{
 div[data-testid="stVerticalBlockBorderWrapper"] *{ color:var(--ink); position:relative; z-index:1; }
 
 /* =====================================================
-   INPUTS
+   INPUTS — dark fields, light text (robust across
+   Streamlit versions: cover class, data-testid and
+   data-baseweb selectors, plus the wrapping divs that
+   sometimes carry their own white background)
 ===================================================== */
 
+/* Text input, number input, text area — wrapper + inner input */
 .stTextInput input,
-.stNumberInput input{
+.stNumberInput input,
+.stTextArea textarea,
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stTextArea"] textarea,
+div[data-testid="stTextInput"] div[data-baseweb="input"],
+div[data-testid="stNumberInput"] div[data-baseweb="input"],
+div[data-testid="stNumberInput"] div[data-baseweb="base-input"],
+div[data-baseweb="input"],
+div[data-baseweb="base-input"],
+div[data-baseweb="textarea"]{
     background:rgba(255,255,255,0.05) !important;
+    color:var(--ink) !important;
+    border-color:var(--border) !important;
+}
+
+.stTextInput input,
+.stNumberInput input,
+.stTextArea textarea,
+div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input,
+div[data-testid="stTextArea"] textarea{
+    background:transparent !important;
     color:var(--ink) !important;
     border:1px solid var(--border) !important;
     border-radius:var(--radius-sm) !important;
     height:44px !important;
     font-size:14.5px !important;
+    -webkit-text-fill-color:var(--ink) !important;
 }
 
-.stTextInput input::placeholder{ color:var(--ink-muted) !important; }
+.stTextArea textarea,
+div[data-testid="stTextArea"] textarea{ height:auto !important; }
+
+.stTextInput input::placeholder,
+.stNumberInput input::placeholder,
+.stTextArea textarea::placeholder{ color:var(--ink-muted) !important; opacity:1 !important; }
 
 .stTextInput input:focus,
-.stNumberInput input:focus{
+.stNumberInput input:focus,
+.stTextArea textarea:focus,
+div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within,
+div[data-testid="stNumberInput"] div[data-baseweb="input"]:focus-within{
     border-color:var(--accent) !important;
     box-shadow:0 0 0 3px var(--accent-soft) !important;
 }
 
-.stSelectbox div[data-baseweb="select"] > div{
+/* Chrome/Edge autofill forces its own white background — neutralise it */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+    -webkit-text-fill-color:var(--ink) !important;
+    -webkit-box-shadow:0 0 0 1000px #1C1113 inset !important;
+    box-shadow:0 0 0 1000px #1C1113 inset !important;
+    caret-color:var(--ink) !important;
+}
+
+/* Number input +/- stepper buttons */
+div[data-testid="stNumberInput"] button,
+.stNumberInput button{
+    background:rgba(255,255,255,0.06) !important;
+    color:var(--ink) !important;
+    border-color:var(--border) !important;
+}
+div[data-testid="stNumberInput"] button svg{ fill:var(--ink) !important; }
+
+/* Selectbox / dropdown trigger */
+.stSelectbox div[data-baseweb="select"] > div,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] > div{
     background:rgba(255,255,255,0.05) !important;
     border-color:var(--border) !important;
     color:var(--ink) !important;
@@ -274,8 +329,16 @@ div[data-testid="stVerticalBlockBorderWrapper"] *{ color:var(--ink); position:re
     min-height:44px !important;
 }
 
-div[data-baseweb="popover"] li{ color:var(--ink) !important; }
+.stSelectbox div[data-baseweb="select"] *,
+div[data-testid="stSelectbox"] div[data-baseweb="select"] *{
+    color:var(--ink) !important;
+    fill:var(--ink) !important;
+}
+
+/* Dropdown popover (open menu) */
+div[data-baseweb="popover"] li{ color:var(--ink) !important; background:transparent !important; }
 div[data-baseweb="popover"] ul{ background:#1C1113 !important; }
+div[data-baseweb="popover"] li:hover{ background:rgba(255,255,255,0.06) !important; }
 
 /* Sliders */
 
