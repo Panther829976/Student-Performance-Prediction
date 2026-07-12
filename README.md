@@ -40,7 +40,3 @@ Streamlit_App/
 README.md
 
 requirements.txt
-
-## Developed By
-
-Om Vishwakarma
