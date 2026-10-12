@@ -41,5 +41,17 @@ README.md
 
 requirements.txt
 
-## 
+## How to Run Locally
+
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Run the Streamlit application:
+   ```bash
+   streamlit run Streamlit_App/app.py
+   ```
+
+3. Open your browser and navigate to `http://localhost:8501`.
 
